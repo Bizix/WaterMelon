@@ -38,4 +38,6 @@ function NowPlaying() {
     </div>
   );
 }
-export default NowPlaying;
+
+const MemoizedNowPlaying = React.memo(NowPlaying);
+export default MemoizedNowPlaying;

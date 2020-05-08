@@ -3,12 +3,13 @@ import Header from "./Header";
 import PlaylistHeaders from "./PlaylistHeaders";
 import NowPlaying from "./NowPlaying";
 import Playlist from "./Playlist";
-import { GenreProvider } from "../contexts/GenreContext";
+
+import { MusicProvider } from "../contexts/MusicContext";
 
 const App = () => {
   return (
     <div id="main_container" className="App ui container">
-      <GenreProvider>
+      <MusicProvider>
         <Header />
         <div className="ui grid">
           <div className="ui row">
@@ -21,7 +22,7 @@ const App = () => {
             </div>
           </div>
         </div>
-      </GenreProvider>
+      </MusicProvider>
     </div>
   );
 };

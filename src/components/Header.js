@@ -4,7 +4,7 @@ import useMelon from "../components/useMelon";
 import Logo from "../assets/watermelon_04.png";
 
 const Header = () => {
-  const {getGenre } = useMelon();
+  const { getGenre } = useMelon();
 
   let headers = [
     { id: "top100", path: "DM0000", text: "Top 100" },
@@ -16,7 +16,7 @@ const Header = () => {
     { id: "balad", path: "GN0100", text: "Balads" },
     { id: "trot", path: "GN0700", text: "Trot" },
     { id: "folk", path: "GN0800", text: "Folk" },
-  ]
+  ];
 
   return (
     <div id="header" className="dark">
@@ -30,7 +30,7 @@ const Header = () => {
             className="genre"
             key={header.path}
             onClick={() => {
-             getGenre(header);
+              getGenre(header);
             }}
           >
             {header.text}
@@ -41,4 +41,6 @@ const Header = () => {
   );
 };
 
-export default Header;
+const MemoizedHeader = React.memo(Header);
+
+export default  MemoizedHeader;

@@ -39,4 +39,7 @@ const Playlist = () => {
   );
 };
 
-export default Playlist;
+
+const MemoizedPlaylist = React.memo(Playlist);
+
+export default MemoizedPlaylist;
