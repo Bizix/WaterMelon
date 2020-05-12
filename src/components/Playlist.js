@@ -34,7 +34,7 @@ const Playlist = () => {
 
   return (
     <>
-      <div id="playlist_container" className="ui relaxed divided list">{playlistRendor()}</div>
+      <div id="playlist_container" className="ui relaxed centered list grid">{playlistRendor()}</div>
     </>
   );
 };

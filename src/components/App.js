@@ -11,13 +11,13 @@ const App = () => {
     <div id="main_container" className="App ui container">
       <MusicProvider>
         <Header />
-        <div className="ui grid">
-          <div className="ui row">
-            <div className="ten wide column">
+        <div className="ui grid equal width">
+          <div className="ui row centered">
+            <div className="six wide column">
               <PlaylistHeaders />
               <Playlist />
             </div>
-            <div className="five wide column">
+            <div className="seven wide column middle nowPlaying">
               <NowPlaying />
             </div>
           </div>

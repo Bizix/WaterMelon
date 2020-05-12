@@ -6,12 +6,9 @@ const PlaylistHeaders = () => {
       <section>
         <div className="playlist_header">
           <div className="ranking">Ranking</div>
-          <div className="song">Song</div>
-          <div className="artist_name">Artist</div>
+          <div className="song">Song Title</div>
+          <div className="artist">Artist</div>
           <div className="album">Album</div>
-          <div className="upA">
-            <i className="fas fa-angle-up"></i>
-          </div>
         </div>
       </section>
     </div>
@@ -19,3 +16,4 @@ const PlaylistHeaders = () => {
 };
 
 export default PlaylistHeaders;
+ 

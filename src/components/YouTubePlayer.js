@@ -18,8 +18,8 @@ const YouTubePlayer = (props) => {
         id="ytplayer"
         className="playlist"
         type="text/html"
-        width="896"
-        height="504"
+        width="1000"
+        height="588"
         allowFullScreen="allowfullscreen"
         src={url}
       />
