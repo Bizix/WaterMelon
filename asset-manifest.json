@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/WaterMelon/static/css/main.6a439f26.chunk.css",
-    "main.js": "/WaterMelon/static/js/main.f4eba3e1.chunk.js",
-    "main.js.map": "/WaterMelon/static/js/main.f4eba3e1.chunk.js.map",
+    "main.js": "/WaterMelon/static/js/main.4c87614d.chunk.js",
+    "main.js.map": "/WaterMelon/static/js/main.4c87614d.chunk.js.map",
     "runtime-main.js": "/WaterMelon/static/js/runtime-main.d0629a65.js",
     "runtime-main.js.map": "/WaterMelon/static/js/runtime-main.d0629a65.js.map",
     "static/js/2.2724c19d.chunk.js": "/WaterMelon/static/js/2.2724c19d.chunk.js",
     "static/js/2.2724c19d.chunk.js.map": "/WaterMelon/static/js/2.2724c19d.chunk.js.map",
     "index.html": "/WaterMelon/index.html",
-    "precache-manifest.f4ac10d6289c8537a4019be157a7c248.js": "/WaterMelon/precache-manifest.f4ac10d6289c8537a4019be157a7c248.js",
+    "precache-manifest.80adfaa99b2a73766d57027d64eed24f.js": "/WaterMelon/precache-manifest.80adfaa99b2a73766d57027d64eed24f.js",
     "service-worker.js": "/WaterMelon/service-worker.js",
     "static/css/main.6a439f26.chunk.css.map": "/WaterMelon/static/css/main.6a439f26.chunk.css.map",
     "static/js/2.2724c19d.chunk.js.LICENSE.txt": "/WaterMelon/static/js/2.2724c19d.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.d0629a65.js",
     "static/js/2.2724c19d.chunk.js",
     "static/css/main.6a439f26.chunk.css",
-    "static/js/main.f4eba3e1.chunk.js"
+    "static/js/main.4c87614d.chunk.js"
   ]
 }
