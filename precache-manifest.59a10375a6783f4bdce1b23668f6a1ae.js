@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b601e3e8f64f5b3ef35e71422fa567c7",
+    "revision": "6bb0886a20156aec7d6244eee29b4573",
     "url": "/WaterMelon/index.html"
   },
   {
-    "revision": "c983b72460716b7b0572",
+    "revision": "5463c0c8f7939d05c387",
     "url": "/WaterMelon/static/css/main.6a439f26.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/WaterMelon/static/js/2.2724c19d.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "c983b72460716b7b0572",
-    "url": "/WaterMelon/static/js/main.4c87614d.chunk.js"
+    "revision": "5463c0c8f7939d05c387",
+    "url": "/WaterMelon/static/js/main.449405d1.chunk.js"
   },
   {
     "revision": "4a78b6e7b535481056bd",
