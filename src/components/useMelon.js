@@ -32,46 +32,72 @@ const useMelon = () => {
     if (isLoading !== true) {
       setIsLoading(true);
 
+      let currentSong = { ...state.currentSong };
       let customPlaylist = [];
+      let playlistTracks = [];
       let currentId = "";
       let tracks = { ...state.tracks };
       let currentGenre = [state.genre.id];
 
-      for (let i = 0; i < 51; i++) {
-        // Get YoutubeID
-        if (tracks[currentGenre][i].YouTubeId === "") {
+      for (let i = 0; i < 10; i++) {
+        let currentTrack = tracks[currentGenre][i];
+
+        if (currentTrack.YouTubeId === "") {
           currentId = await fetchYoutube(
             tracks[currentGenre][i].artist,
             tracks[currentGenre][i].title
           );
-          // currentId = `asdf${i}`;
-        } else currentId = state.tracks[i].YouTubeId;
+          // currentId = `${state.genre.id}.${currentTrack.trackIndex}`;
+        } else currentId = currentTrack.YouTubeId;
+
+        if (currentSong.YouTubeId === currentId) {
+          currentSong.availableAction = "delete";
+          setState((state) => ({ ...state, currentSong }));
+        }
 
         // Give option to remove individual tracks form playlist
         let availableAction = "delete";
-        tracks[currentGenre][i].availableAction = availableAction;
+        currentTrack.availableAction = availableAction;
 
         customPlaylist.push(currentId);
+        playlistTracks.push(currentTrack);
       }
       setIsLoading(false);
 
-      setState((state) => ({ ...state, tracks, customPlaylist }));
+      setState((state) => ({
+        ...state,
+        tracks,
+        customPlaylist,
+        playlistTracks,
+      }));
     }
-    // Other than double fetching works
   };
 
   const clearPlaylist = () => {
     let customPlaylist = [];
+    let playlistTracks = [];
     let tracks = { ...state.tracks };
     let currentGenre = [state.genre.id];
+    let watchingPlaylist = false;
 
     for (let playlist in tracks) {
       for (let item in playlist) {
         tracks[currentGenre][item].availableAction = "add";
       }
 
-      setState((state) => ({ ...state, tracks, customPlaylist }));
+      setState((state) => ({
+        ...state,
+        tracks,
+        customPlaylist,
+        playlistTracks,
+      }));
     }
+    setState((state) => ({ ...state, watchingPlaylist }));
+  };
+
+  const viewPlaylist = () => {
+    let watchingPlaylist = true;
+    setState((state) => ({ ...state, watchingPlaylist }));
   };
 
   // Update Genre onHeaderClick
@@ -82,54 +108,102 @@ const useMelon = () => {
   // Update currently selected song (onClick)
   const handleCurrentSong = async (track, index, action) => {
     let videoId;
+    let currentSong = { ...state.currentSong };
     let customPlaylist = [...state.customPlaylist];
+    let playlistTracks = [...state.playlistTracks];
     let tracks = { ...state.tracks };
     let currentGenre = [state.genre.id];
 
     track.YouTubeId
       ? (videoId = track.YouTubeId)
-      :  (videoId = await fetchYoutube(track.artist, track.title));
+      : (videoId = await fetchYoutube(track.artist, track.title));
         // (videoId = `${state.genre.id}.${index}`);
 
-    // Update track @ selected index to include youtube ID
-    if (state.tracks[index]) {
-      let tracks = [...state.tracks];
-      tracks[index].YouTubeId = videoId;
+    // Check if fetch needed
+    if (tracks[currentGenre][index].YouTubeId === "") {
+      console.log("should be updating");
+      tracks[currentGenre][index].YouTubeId = videoId;
       setState((state) => ({ ...state, tracks }));
     }
     // Play current video
     if (action === "play") {
-      let currentSong = {
-        title: track.title,
-        artist: track.artist,
-        album: track.album,
-        videoId: videoId,
-      };
+      if (window.screen.width > 767) {
+        let currentSong = {
+          rank: track.rank,
+          title: track.title,
+          artist: track.artist,
+          album: track.album,
+          art: track.art,
+          YouTubeId: videoId,
+          key: track.key,
+          availableAction: track.availableAction,
+          trackGenre: track.trackGenre,
+          trackIndex: track.trackIndex,
+        };
+        let watchingPlaylist = false;
 
-      setState((state) => ({ ...state, currentSong }));
+        setState((state) => ({ ...state, currentSong, watchingPlaylist }));
+      } else {
+        let ytLink = `https://www.youtube.com/watch?v=${videoId}`;
+
+        var win = window.open(ytLink, "_blank");
+        win.focus();
+      }
     }
 
     // Delete from custom playlist
     else if (customPlaylist.includes(videoId)) {
       console.log(`delete ${videoId}`);
+      if (currentSong.YouTubeId === videoId) {
+        currentSong.availableAction = "add";
+        console.log(currentSong);
+
+        setState((state) => ({ ...state, currentSong }));
+      }
+
+      let currentGenre = track.trackGenre;
+
+      // change from current genre to trackGenre
       customPlaylist = customPlaylist.filter((item) => item !== videoId);
-      console.log(customPlaylist);
-      setState((state) => ({ ...state, customPlaylist }));
-
       tracks[currentGenre][index].availableAction = "add";
+      playlistTracks = playlistTracks.filter(
+        (item) => item.YouTubeId !== videoId
+      );
 
-      setState((state) => ({ ...state, tracks }));
+      setState((state) => ({
+        ...state,
+        tracks,
+        customPlaylist,
+        playlistTracks,
+      }));
+
+      // Return to currentSong if playlist becomes empty
+      if (customPlaylist.length === 0 && state.watchingPlaylist === true) {
+        let watchingPlaylist = false;
+        setState((state) => ({ ...state, watchingPlaylist }));
+      }
     }
     // Add to custom Playlist
     else if (customPlaylist.includes(videoId) === false) {
       console.log(`add ${videoId}`);
-      customPlaylist = [...state.customPlaylist, videoId];
-      console.log(customPlaylist);
-      setState((state) => ({ ...state, customPlaylist }));
 
+      if (currentSong.YouTubeId === videoId) {
+        currentSong.availableAction = "delete";
+        setState((state) => ({ ...state, currentSong }));
+      }
+      customPlaylist = [...state.customPlaylist, videoId];
+
+      track.availableAction = "delete";
+
+      playlistTracks = [...state.playlistTracks, track];
       tracks[currentGenre][index].availableAction = "delete";
 
-      setState((state) => ({ ...state, tracks }));
+      setState((state) => ({
+        ...state,
+        tracks,
+        customPlaylist,
+        playlistTracks,
+      }));
     }
   };
 
@@ -166,8 +240,11 @@ const useMelon = () => {
     tracks: state.tracks,
     currentSong: state.currentSong,
     customPlaylist: state.customPlaylist,
+    watchingPlaylist: state.watchingPlaylist,
     isLoading,
+    playlistTracks: state.playlistTracks,
     clearPlaylist,
+    viewPlaylist,
     fetchYoutube,
     fetchGenrePlaylist,
     getGenre,

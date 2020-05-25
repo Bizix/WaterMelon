@@ -12,12 +12,12 @@ const App = () => {
       <MusicProvider>
         <Header />
         <div className="ui grid equal width">
-          <div className="ui row centered">
-            <div className="six wide column">
+          <div className="ui row centered ">
+            <div className="six wide column mobilePlaylist" id="mobile">
               <PlaylistHeaders />
               <Playlist />
             </div>
-            <div className="seven wide column middle nowPlaying">
+            <div className="six wide column middle nowPlaying">
               <NowPlaying />
             </div>
           </div>

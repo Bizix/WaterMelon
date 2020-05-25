@@ -1,11 +1,15 @@
 import React from "react";
+import useMelon from "./useMelon";
 
 const YouTubePlayer = (props) => {
+  const { watchingPlaylist } = useMelon();
   let url;
-  if (props.playlist.length > 0) {
+  if (watchingPlaylist === true) {
     url = `https://www.youtube.com/embed/VIDEO_ID?playlist=${props.playlist}`;
-  } else if (props.youtubeID) {
+  } else if (watchingPlaylist === false) {
     url = `https://www.youtube.com/embed/${props.youtubeID}`;
+  } else {
+    return "";
   }
 
   if (typeof url !== "undefined") {
@@ -13,13 +17,13 @@ const YouTubePlayer = (props) => {
   }
 
   return (
-    <div>
+    <div id="iframe_container">
       <iframe
         id="ytplayer"
         className="playlist"
         type="text/html"
-        width="1000"
-        height="588"
+        width="900"
+        height="506"
         allowFullScreen="allowfullscreen"
         src={url}
       />

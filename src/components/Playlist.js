@@ -12,8 +12,6 @@ const Playlist = () => {
     tracks,
   } = useMelon();
 
-  console.log(state);
-
   const playlistRendor = () => {
     let currentList = tracks[genre.id];
 

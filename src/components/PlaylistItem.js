@@ -32,7 +32,7 @@ const PlaylistItem = ({ track, index }) => {
             <div className="album_name">{track.album}</div>
           </div>
         </div>
-        <div className="mediaLinks two wide ui right floated padded column">
+        <div className="mediaLinks two wide ui padded column">
           <div className="ui column">
             <div
               className="mediaButton ui button red  centered fa-2x watchOnYT"
@@ -41,33 +41,32 @@ const PlaylistItem = ({ track, index }) => {
                 handleCurrentSong(track, index, "play");
               }}
             >
-              <i className="fab fa-youtube">
-                <div className="buttonText">Watch</div>
-              </i>
+              <i className="fab fa-youtube"></i>
+              <div className="buttonText">Watch</div>
             </div>
             <div
               className="mediaButton ui button grey centered fa-2x watchOnYT"
+              id="playlistButton"
               style={{ display: "inline-block" }}
               onClick={() => {
                 handleCurrentSong(track, index, track.availableAction);
               }}
             >
-              <i className="fab fa-youtube">
-                <div className="buttonText">
-                  {getButtonTxt(track.availableAction)}
-                </div>
-              </i>
+              <i className="fab fa-youtube"></i>
+              <div className="buttonText">
+                {getButtonTxt(track.availableAction)}
+              </div>
             </div>
             <div
               className="mediaButton ui button black  centered fa-2x watchOnYT"
+              id="lyricButton"
               style={{ display: "inline-block" }}
               onClick={() => {
                 getLyrics(track.artist, track.title, track.album);
               }}
             >
-              <i className="fab">
-                <div className="buttonText">Lyrics</div>
-              </i>
+              <i className="fab"></i>
+              <div className="buttonText">Lyrics</div>
             </div>
           </div>
         </div>

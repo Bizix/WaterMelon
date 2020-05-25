@@ -3,16 +3,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import youtube from "../apis/youtube";
 
-
 const Context = React.createContext([{}, () => {}]);
 
 export const MusicProvider = (props) => {
-
   const [state, setState] = useState({
     genre: { path: "DM0000", id: "top100", text: "Top 100" },
     tracks: {},
     customPlaylist: [],
+    playlistTracks: [],
     currentSong: {},
+    watchingPlaylist: false,
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +23,7 @@ export const MusicProvider = (props) => {
     if (!state.tracks[id] && !isLoading) {
       console.log(`need to fetch`);
       const res = await axios(
-        `http://cors-anywhere.herokuapp.com/http://www.melon.com/chart/day/index.htm?classCd=${path}`
+        `https://cors-anywhere.herokuapp.com/https://www.melon.com/chart/day/index.htm?classCd=${path}`
       );
 
       getTracks(res.data);
@@ -32,8 +32,8 @@ export const MusicProvider = (props) => {
     setIsLoading(false);
   };
 
-   // Fetch Youtube Video ID for selected song
-   const fetchYoutube = async (artist, title) => {
+  // Fetch Youtube Video ID for selected song
+  const fetchYoutube = async (artist, title) => {
     var KEY = "AIzaSyDJG4uwhqh0A4gCLmgQuDhyJM7DK57dbDk";
 
     const res = await youtube.get("/search", {
@@ -73,6 +73,8 @@ export const MusicProvider = (props) => {
       let YouTubeId = "";
       let key = keyAr[index].getAttribute("data-song-no");
       let availableAction = "add";
+      let trackGenre = state.genre.id;
+      let trackIndex = index;
 
       let currentTrack = {
         rank,
@@ -83,6 +85,8 @@ export const MusicProvider = (props) => {
         YouTubeId,
         key,
         availableAction,
+        trackGenre,
+        trackIndex,
       };
 
       // defaults on initial load to #1 song
@@ -93,7 +97,6 @@ export const MusicProvider = (props) => {
       currentGenre.push(currentTrack);
     });
 
-    // new but not working
     let tracks = { ...state.tracks, [state.genre.id]: currentGenre };
     setState((state) => ({ ...state, tracks }));
   };
@@ -106,22 +109,31 @@ export const MusicProvider = (props) => {
 
     track.YouTubeId
       ? (videoId = track.YouTubeId)
-      :  (videoId = await fetchYoutube(track.artist, track.title));
-        // (videoId = `${state.genre.id}.${index}`);
+      : (videoId = await fetchYoutube(track.artist, track.title));
+    // (videoId = `${state.genre.id}.${index}`);
 
-    // Update track @ selected index to include youtube ID
-    if (state.tracks[index]) {
-      let tracks = [...state.tracks];
-      tracks[index].YouTubeId = videoId;
+    // Check if fetch needed
+    if (
+      typeof tracks[currentGenre] !== "undefined" &&
+      tracks[currentGenre][index].YouTubeId === ""
+    ) {
+      console.log("should be updating");
+      tracks[currentGenre][index].YouTubeId = videoId;
       setState((state) => ({ ...state, tracks }));
     }
     // Play current video
     if (action === "play") {
       let currentSong = {
+        rank: track.rank,
         title: track.title,
         artist: track.artist,
         album: track.album,
-        videoId: videoId,
+        art: track.art,
+        YouTubeId: videoId,
+        key: track.key,
+        availableAction: track.availableAction,
+        trackGenre: track.trackGenre,
+        trackIndex: track.trackIndex,
       };
 
       setState((state) => ({ ...state, currentSong }));
@@ -138,6 +150,7 @@ export const MusicProvider = (props) => {
 
       setState((state) => ({ ...state, tracks }));
     }
+
     // Add to custom Playlist
     else if (customPlaylist.includes(videoId) === false) {
       console.log(`add ${videoId}`);
@@ -150,8 +163,6 @@ export const MusicProvider = (props) => {
       setState((state) => ({ ...state, tracks }));
     }
   };
-
-   
 
   useEffect(() => {
     console.log(isLoading);
