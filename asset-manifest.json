@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/WaterMelon/static/css/main.6a439f26.chunk.css",
-    "main.js": "/WaterMelon/static/js/main.449405d1.chunk.js",
-    "main.js.map": "/WaterMelon/static/js/main.449405d1.chunk.js.map",
+    "main.css": "/WaterMelon/static/css/main.cb04c217.chunk.css",
+    "main.js": "/WaterMelon/static/js/main.02e2441b.chunk.js",
+    "main.js.map": "/WaterMelon/static/js/main.02e2441b.chunk.js.map",
     "runtime-main.js": "/WaterMelon/static/js/runtime-main.d0629a65.js",
     "runtime-main.js.map": "/WaterMelon/static/js/runtime-main.d0629a65.js.map",
-    "static/js/2.2724c19d.chunk.js": "/WaterMelon/static/js/2.2724c19d.chunk.js",
-    "static/js/2.2724c19d.chunk.js.map": "/WaterMelon/static/js/2.2724c19d.chunk.js.map",
+    "static/js/2.c8497689.chunk.js": "/WaterMelon/static/js/2.c8497689.chunk.js",
+    "static/js/2.c8497689.chunk.js.map": "/WaterMelon/static/js/2.c8497689.chunk.js.map",
     "index.html": "/WaterMelon/index.html",
-    "precache-manifest.59a10375a6783f4bdce1b23668f6a1ae.js": "/WaterMelon/precache-manifest.59a10375a6783f4bdce1b23668f6a1ae.js",
+    "precache-manifest.1edd51a7a2db9f4b4bdaf16679dcbec2.js": "/WaterMelon/precache-manifest.1edd51a7a2db9f4b4bdaf16679dcbec2.js",
     "service-worker.js": "/WaterMelon/service-worker.js",
-    "static/css/main.6a439f26.chunk.css.map": "/WaterMelon/static/css/main.6a439f26.chunk.css.map",
-    "static/js/2.2724c19d.chunk.js.LICENSE.txt": "/WaterMelon/static/js/2.2724c19d.chunk.js.LICENSE.txt",
+    "static/css/main.cb04c217.chunk.css.map": "/WaterMelon/static/css/main.cb04c217.chunk.css.map",
+    "static/js/2.c8497689.chunk.js.LICENSE.txt": "/WaterMelon/static/js/2.c8497689.chunk.js.LICENSE.txt",
     "static/media/watermelon_04.png": "/WaterMelon/static/media/watermelon_04.17098dbf.png"
   },
   "entrypoints": [
     "static/js/runtime-main.d0629a65.js",
-    "static/js/2.2724c19d.chunk.js",
-    "static/css/main.6a439f26.chunk.css",
-    "static/js/main.449405d1.chunk.js"
+    "static/js/2.c8497689.chunk.js",
+    "static/css/main.cb04c217.chunk.css",
+    "static/js/main.02e2441b.chunk.js"
   ]
 }
