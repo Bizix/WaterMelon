@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/WaterMelon/precache-manifest.1edd51a7a2db9f4b4bdaf16679dcbec2.js"
+  "/WaterMelon/precache-manifest.6c7d8756f0d25cd51485cf9fc515b1ae.js"
 );
 
 self.addEventListener('message', (event) => {
