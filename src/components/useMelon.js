@@ -121,7 +121,6 @@ const useMelon = () => {
 
     // Check if fetch needed
     if (tracks[currentGenre][index].YouTubeId === "") {
-      console.log("should be updating");
       tracks[currentGenre][index].YouTubeId = videoId;
       setState((state) => ({ ...state, tracks }));
     }
@@ -153,10 +152,8 @@ const useMelon = () => {
 
     // Delete from custom playlist
     else if (customPlaylist.includes(videoId)) {
-      console.log(`delete ${videoId}`);
       if (currentSong.YouTubeId === videoId) {
         currentSong.availableAction = "add";
-        console.log(currentSong);
 
         setState((state) => ({ ...state, currentSong }));
       }
@@ -185,7 +182,6 @@ const useMelon = () => {
     }
     // Add to custom Playlist
     else if (customPlaylist.includes(videoId) === false) {
-      console.log(`add ${videoId}`);
 
       if (currentSong.YouTubeId === videoId) {
         currentSong.availableAction = "delete";
@@ -225,11 +221,10 @@ const useMelon = () => {
     if (typeof results !== "undefined") {
       let lyricLink = results[0].link;
 
-      console.log(lyricLink);
       var win = window.open(lyricLink, "_blank");
       win.focus();
     } else {
-      console.log("No lyrics found!");
+      return
     }
   };
 

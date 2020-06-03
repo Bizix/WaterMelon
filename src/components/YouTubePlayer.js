@@ -12,14 +12,11 @@ const YouTubePlayer = (props) => {
     return "";
   }
 
-  if (typeof url !== "undefined") {
-    console.log(url);
-  }
-
   return (
     <div id="iframe_container">
       <iframe
         id="ytplayer"
+        title={props.youtubeID}
         className="playlist"
         type="text/html"
         width="900"

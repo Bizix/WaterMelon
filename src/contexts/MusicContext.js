@@ -19,14 +19,25 @@ export const MusicProvider = (props) => {
 
   // Fetch songs via Melon based on selected genre
   const fetchPlaylist = async ({ id, path }) => {
-    console.log(isLoading);
     if (!state.tracks[id] && !isLoading) {
-      console.log(`need to fetch`);
-      const res = await axios(
-        `https://cors-anywhere.herokuapp.com/https://www.melon.com/chart/day/index.htm?classCd=${path}`
-      );
+      let config = {};
 
-      getTracks(res.data);
+      let res = "";
+      if (window.screen.width < 767) {
+        res = await axios(
+          `https://cors-anywhere.herokuapp.com/https://m2.melon.com/cds/main/mobile4web/main_chart.htm
+          `,
+          config
+        );
+
+        getTracks(res.data);
+      } else {
+        res = await axios(
+          `https://cors-anywhere.herokuapp.com/https://www.melon.com/chart/day/index.htm?classCd=${path}`,
+          config
+        );
+        getTracks(res.data);
+      }
     }
 
     setIsLoading(false);
@@ -55,50 +66,101 @@ export const MusicProvider = (props) => {
 
     div.innerHTML = res;
 
-    let rankAr = div.querySelectorAll("#lst50 .rank, #lst100 .rank");
-    let titleAr = div.querySelectorAll(".rank01>span>a");
-    let artistAr = div.querySelectorAll(".rank02>span>a");
-    let albumAr = div.querySelectorAll(".rank03>a");
-    let artAr = div.querySelectorAll(".image_typeAll>img");
-    let keyAr = div.querySelectorAll("tr[data-song-no]");
+    if (window.screen.width < 767) {
+      let rankAr = div.querySelectorAll("strong.rank");
+      let titleAr = div.querySelectorAll(".title");
+      let artistAr = div.querySelectorAll(".name");
+      let artAr = div.querySelectorAll(".inner>span");
+      let currentGenre = [];
 
-    let currentGenre = [];
+      rankAr.forEach(function (ranking, index) {
+        let rank = ranking.textContent;
+        let title = titleAr[index].textContent;
+        let artist = artistAr[index].textContent;
+        let album = "";
+        let art = artAr[index].style.backgroundImage;
+        art = art.replace('url("//', "https://");
+        art = art.replace('")', "");
 
-    rankAr.forEach(function (ranking, index) {
-      let rank = ranking.textContent;
-      let title = titleAr[index].textContent;
-      let artist = artistAr[index].textContent;
-      let album = albumAr[index].textContent;
-      let art = artAr[index].src;
-      let YouTubeId = "";
-      let key = keyAr[index].getAttribute("data-song-no");
-      let availableAction = "add";
-      let trackGenre = state.genre.id;
-      let trackIndex = index;
+        console.log(art);
 
-      let currentTrack = {
-        rank,
-        title,
-        artist,
-        album,
-        art,
-        YouTubeId,
-        key,
-        availableAction,
-        trackGenre,
-        trackIndex,
-      };
+        let YouTubeId = "";
+        let key = ranking.textContent;
+        let availableAction = "add";
+        let trackGenre = state.genre.id;
+        let trackIndex = index;
 
-      // defaults on initial load to #1 song
-      if (typeof state.currentSong.title === "undefined" && index === 0) {
-        handleCurrentSong(currentTrack, index, "play");
-      }
+        let currentTrack = {
+          rank,
+          title,
+          artist,
+          album,
+          art,
+          YouTubeId,
+          key,
+          availableAction,
+          trackGenre,
+          trackIndex,
+        };
 
-      currentGenre.push(currentTrack);
-    });
+        // defaults on initial load to #1 song
+        if (typeof state.currentSong.title === "undefined" && index === 0) {
+          handleCurrentSong(currentTrack, index, "play");
+        }
 
-    let tracks = { ...state.tracks, [state.genre.id]: currentGenre };
-    setState((state) => ({ ...state, tracks }));
+        currentGenre.push(currentTrack);
+      });
+
+      let tracks = { ...state.tracks, [state.genre.id]: currentGenre };
+      setState((state) => ({ ...state, tracks }));
+    } else {
+      let rankAr = div.querySelectorAll("#lst50 .rank, #lst100 .rank");
+      let titleAr = div.querySelectorAll(".rank01>span>a");
+      let artistAr = div.querySelectorAll(".rank02>span>a");
+      let albumAr = div.querySelectorAll(".rank03>a");
+      let artAr = div.querySelectorAll(".image_typeAll>img");
+      let keyAr = div.querySelectorAll("tr[data-song-no]");
+
+      let currentGenre = [];
+
+      rankAr.forEach(function (ranking, index) {
+        let rank = ranking.textContent;
+        let title = titleAr[index].textContent;
+        let artist = artistAr[index].textContent;
+        let album = albumAr[index].textContent;
+        let art = artAr[index].src;
+        let YouTubeId = "";
+        let key = keyAr[index].getAttribute("data-song-no");
+        let availableAction = "add";
+        let trackGenre = state.genre.id;
+        let trackIndex = index;
+
+        console.log(art);
+
+        let currentTrack = {
+          rank,
+          title,
+          artist,
+          album,
+          art,
+          YouTubeId,
+          key,
+          availableAction,
+          trackGenre,
+          trackIndex,
+        };
+
+        // defaults on initial load to #1 song
+        if (typeof state.currentSong.title === "undefined" && index === 0) {
+          handleCurrentSong(currentTrack, index, "play");
+        }
+
+        currentGenre.push(currentTrack);
+      });
+
+      let tracks = { ...state.tracks, [state.genre.id]: currentGenre };
+      setState((state) => ({ ...state, tracks }));
+    }
   };
 
   const handleCurrentSong = async (track, index, action) => {
@@ -117,7 +179,6 @@ export const MusicProvider = (props) => {
       typeof tracks[currentGenre] !== "undefined" &&
       tracks[currentGenre][index].YouTubeId === ""
     ) {
-      console.log("should be updating");
       tracks[currentGenre][index].YouTubeId = videoId;
       setState((state) => ({ ...state, tracks }));
     }
@@ -141,9 +202,7 @@ export const MusicProvider = (props) => {
 
     // Delete from custom playlist
     else if (customPlaylist.includes(videoId)) {
-      console.log(`delete ${videoId}`);
       customPlaylist = customPlaylist.filter((item) => item !== videoId);
-      console.log(customPlaylist);
       setState((state) => ({ ...state, customPlaylist }));
 
       tracks[currentGenre][index].availableAction = "add";
@@ -153,9 +212,7 @@ export const MusicProvider = (props) => {
 
     // Add to custom Playlist
     else if (customPlaylist.includes(videoId) === false) {
-      console.log(`add ${videoId}`);
       customPlaylist = [...state.customPlaylist, videoId];
-      console.log(customPlaylist);
       setState((state) => ({ ...state, customPlaylist }));
 
       tracks[currentGenre][index].availableAction = "delete";
@@ -165,9 +222,7 @@ export const MusicProvider = (props) => {
   };
 
   useEffect(() => {
-    console.log(isLoading);
     if (isLoading === false) {
-      console.log(state.genre);
       setIsLoading(true);
       fetchPlaylist(state.genre);
     }

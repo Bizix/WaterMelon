@@ -53,7 +53,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: "Comfortaa", cursive;
+  font-family: "Comfortaa", sans-serif;
   color: rgb(0, 210, 2);
   font-size: 1rem;
   cursor: pointer;
@@ -235,171 +235,34 @@ body {
   width: 15%;
 }
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-  .nowPlaying {
-    display: none !important;
-  }
+#footer {
+  color: white;
+  background-color: rgb(0, 210, 2);
+  position: static;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
 
-  #mobile {
-    width: 90% !important;
-  }
-  #playlistButton {
-    display: none !important;
-  }
+#policyButtons {
+  color: black;
+  display: flex;
+  flex-direction: row;
+}
+#policyButtons> div:hover {
+  color: white;
+}
 
-  #playlist_container {
-    overflow: visible;
-  }
-  .logo {
-    width: 10%;
-    position: absolute;
-    top:15px;
-    left: 10px;
-  }
-  
-  .logo img {
-    width: 100%;
-    margin-top: 20%;
-  }
-  
-  .genre_container {
-    width: 90%;
-  }
-
-  .genre {
-    width: 50%;
-    height: 90%;
-    padding: 2px;
-    margin-top: 4%;
-    margin-bottom: 5px;
-    font-size: 0.7rem;
-  }
-
-  /* Now Playing Section */
-  .nowPlaying {
-    padding-top: 3.5%;
-  }
-
-  #current_song {
-    padding-top: 8%;
-
-    padding-left: 2%;
-  }
-
-  /* Playlist section */
-
-  .playlist_header {
-    width: 100%;
-    margin: 3% auto;
-    padding: 1%;
-    font-size: 0.6rem;
-  }
-
-  .ranking {
-    margin-left: 8%;
-  }
-  .song {
-    margin-left: 8%;
-  }
-
-  .artist {
-    margin-left: 7%;
-  }
-
-  .album {
-    margin-left: 8%;
-  }
-
-  #playlist_container .item {
-    padding: 1%;
-  }
-
-  #custom_playlist_container .item {
-    padding-left: 4%;
-    padding-top: 1%;
-  }
-
-  /* #button_container > div{
-    font-size: 15px;
-  } */
-
-  .watchOnYT {
-    font-size: 0.65rem !important;
-  }
-
-  .trackWrapper {
-    border-radius: 25px;
-    padding: 0px;
-  }
-  .trackFaqs {
-    padding: 1%;
-  }
-
-  .trackFaqs > div {
-    font-size: 0.45rem;
-  }
-
-  .art_img > img {
-    height: auto;
-    width: 50px;
-  }
-
-  .mediaLinks {
-    margin-left: 1%;
-    padding-left: 1%;
-    border-left: solid black 1px;
-  }
-
-  .mediaButton {
-    width: 50px;
-    height: 20px;
-    border: 1%;
-    border-radius: 5%;
-  }
-
-  .mediaButton > i {
-    display: none;
-  }
-
-  .buttonText {
-    font-size: 0.5rem;
-  }
-
-  .rank {
-    width: 1%;
-  }
-  .song_title,
-  .artist_name {
-    margin-left: 1.5%;
-    border-right: 1px groove darkgrey;
-    border-spacing: 25px;
-    box-sizing: border-box;
-  }
-
-  .art_img,
-  .album_name {
-    margin-right: 1.5%;
-    margin-left: 1.5%;
-    border-spacing: 25px;
-    box-sizing: border-box;
-  }
-
-  .song_title {
-    width: 22%;
-  }
-
-  .artist_name {
-    width: 22%;
-  }
-
-  .album_name {
-    width: 10%;
-  }
+#divide {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 601px) and (max-width: 767px) {
+@media only screen and (max-width: 767px) {
   .nowPlaying {
     display: none !important;
   }
@@ -419,17 +282,21 @@ body {
   .logo {
     width: 10%;
     position: absolute;
-    top:15px;
+    top: 15px;
     left: 10px;
   }
-  
+
   .logo img {
     width: 100%;
     margin-top: 20%;
   }
-  
+
   .genre_container {
     width: 90%;
+  }
+
+  .genre_container > div {
+    display: none;
   }
 
   .genre {
@@ -439,6 +306,11 @@ body {
     margin-top: 4%;
     margin-bottom: 5px;
     font-size: 0.8rem;
+  }
+
+  #header {
+    height: 5vh;
+    border-bottom: none;
   }
 
   /* Now Playing Section */
@@ -474,6 +346,7 @@ body {
 
   .album {
     margin-left: 15%;
+    display: none;
   }
 
   #playlist_container .item {
@@ -543,22 +416,21 @@ body {
   }
 
   .rank {
-    width: 1%;
+    width: 2%;
   }
-  .song_title,
-  .artist_name {
+  .song_title {
     margin-left: 2.5%;
-    border-right: 1px groove darkgrey;
-    border-spacing: 25px;
-    box-sizing: border-box;
+    padding-right: 5%;
+  }
+
+  .artist_name {
+    border-right: none;
+    margin-left: 10%;
   }
 
   .art_img,
   .album_name {
-    margin-right: 2.5%;
-    margin-left: 2.5%;
-    border-spacing: 25px;
-    box-sizing: border-box;
+    display: none;
   }
 
   .song_title {
@@ -570,7 +442,7 @@ body {
   }
 
   .album_name {
-    width: 10%;
+    width: 0%;
   }
 }
 

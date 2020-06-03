@@ -6,7 +6,6 @@ import Spinner from "./spinner";
 
 const Playlist = () => {
   const {
-    state,
     isLoading,
     genre,
     tracks,

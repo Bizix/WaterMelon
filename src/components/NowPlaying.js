@@ -19,7 +19,7 @@ function NowPlaying() {
 
   const renderHelper = () => {
     let tracksSize = _.size(state.tracks);
-    if (tracksSize != 0) {
+    if (tracksSize !== 0) {
       return (
         <div>
           <YouTubePlayer
@@ -33,7 +33,7 @@ function NowPlaying() {
           <CurrentPlaylist />
         </div>
       );
-    } 
+    }
   };
 
   const renderInstantPlaylistButton = () => {

@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import PlaylistHeaders from "./PlaylistHeaders";
 import NowPlaying from "./NowPlaying";
+import Footer from "./Footer"
 import Playlist from "./Playlist";
 
 import { MusicProvider } from "../contexts/MusicContext";
@@ -23,6 +24,7 @@ const App = () => {
           </div>
         </div>
       </MusicProvider>
+      <Footer/>
     </div>
   );
 };
